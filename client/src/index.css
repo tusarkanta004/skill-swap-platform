@@ -86,10 +86,14 @@
   }
   
   .skills-offered {
-    background: hsl(142, 76%, 36%);
+    background: hsl(210, 100%, 50%) !important;
+    color: white !important;
+    border-color: hsl(210, 100%, 50%) !important;
   }
   
   .skills-wanted {
-    background: hsl(280, 100%, 60%);
+    background: hsl(142, 76%, 36%) !important;
+    color: white !important;
+    border-color: hsl(142, 76%, 36%) !important;
   }
 }
