@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Search, ChevronLeft, ChevronRight, Star, AlertCircle } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -18,23 +19,10 @@ import { apiRequest } from "@/lib/queryClient";
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
-  const [signupForm, setSignupForm] = useState({ 
-    name: "", 
-    email: "", 
-    password: "", 
-    username: "",
-    location: "",
-    skillsOffered: [],
-    skillsWanted: [],
-    availability: "flexible"
-  });
 
   const { user, isLoggedIn, login, register, logout } = useAuth();
   const { toast } = useToast();
@@ -82,54 +70,7 @@ const Home = () => {
     },
   });
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const result = await login(loginForm.email, loginForm.password);
-    
-    if (result.success) {
-      setShowLoginModal(false);
-      setLoginForm({ email: "", password: "" });
-      toast({
-        title: "Welcome back!",
-        description: "You have been logged in successfully.",
-      });
-    } else {
-      toast({
-        title: "Login Failed",
-        description: result.error,
-        variant: "destructive",
-      });
-    }
-  };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    const result = await register(signupForm);
-    
-    if (result.success) {
-      setShowSignupModal(false);
-      setSignupForm({ 
-        name: "", 
-        email: "", 
-        password: "", 
-        username: "",
-        location: "",
-        skillsOffered: [],
-        skillsWanted: [],
-        availability: "flexible"
-      });
-      toast({
-        title: "Account Created!",
-        description: "Welcome to the Skill Swap Platform!",
-      });
-    } else {
-      toast({
-        title: "Registration Failed",
-        description: result.error,
-        variant: "destructive",
-      });
-    }
-  };
 
   const handleRequest = (profile) => {
     if (!isLoggedIn) {
@@ -203,12 +144,11 @@ const Home = () => {
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  onClick={() => setShowLoginModal(true)}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground glow-effect"
-                >
-                  Login
-                </Button>
+                <Link href="/login">
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground glow-effect">
+                    Login
+                  </Button>
+                </Link>
               )}
             </div>
           </div>
@@ -348,163 +288,7 @@ const Home = () => {
         </div>
       </main>
 
-      {/* Login Modal */}
-      <Dialog open={showLoginModal} onOpenChange={setShowLoginModal}>
-        <DialogContent className="liquid-crystal border-border">
-          <DialogHeader>
-            <DialogTitle className="text-center text-2xl">Login</DialogTitle>
-            <p className="text-center text-muted-foreground">Sign in to your account</p>
-          </DialogHeader>
-          
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Label htmlFor="loginEmail">Email</Label>
-              <Input
-                id="loginEmail"
-                type="email"
-                value={loginForm.email}
-                onChange={(e) => setLoginForm({...loginForm, email: e.target.value})}
-                placeholder="Enter your email"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="loginPassword">Password</Label>
-              <Input
-                id="loginPassword"
-                type="password"
-                value={loginForm.password}
-                onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
-                placeholder="Enter your password"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-effect">
-              Login
-            </Button>
-            
-            <div className="text-center">
-              <button type="button" className="text-primary hover:text-primary/80 text-sm">
-                Forgot your password?
-              </button>
-            </div>
-            
-            <div className="text-center">
-              <p className="text-muted-foreground text-sm">Don't have an account?</p>
-              <Button 
-                type="button" 
-                variant="link"
-                onClick={() => {
-                  setShowLoginModal(false);
-                  setShowSignupModal(true);
-                }}
-                className="text-primary hover:text-primary/80 p-0 h-auto"
-              >
-                Create Account
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
 
-      {/* Signup Modal */}
-      <Dialog open={showSignupModal} onOpenChange={setShowSignupModal}>
-        <DialogContent className="liquid-crystal border-border">
-          <DialogHeader>
-            <DialogTitle className="text-center text-2xl">Create Account</DialogTitle>
-            <p className="text-center text-muted-foreground">Join our skill swap community</p>
-          </DialogHeader>
-          
-          <form onSubmit={handleSignup} className="space-y-4">
-            <div>
-              <Label htmlFor="signupName">Name</Label>
-              <Input
-                id="signupName"
-                type="text"
-                value={signupForm.name}
-                onChange={(e) => setSignupForm({...signupForm, name: e.target.value})}
-                placeholder="Enter your full name"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="signupUsername">Username</Label>
-              <Input
-                id="signupUsername"
-                type="text"
-                value={signupForm.username}
-                onChange={(e) => setSignupForm({...signupForm, username: e.target.value})}
-                placeholder="Choose a username"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="signupEmail">Email</Label>
-              <Input
-                id="signupEmail"
-                type="email"
-                value={signupForm.email}
-                onChange={(e) => setSignupForm({...signupForm, email: e.target.value})}
-                placeholder="Enter your email"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="signupLocation">Location (Optional)</Label>
-              <Input
-                id="signupLocation"
-                type="text"
-                value={signupForm.location}
-                onChange={(e) => setSignupForm({...signupForm, location: e.target.value})}
-                placeholder="e.g., San Francisco, CA"
-                className="bg-background border-border"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="signupPassword">Password</Label>
-              <Input
-                id="signupPassword"
-                type="password"
-                value={signupForm.password}
-                onChange={(e) => setSignupForm({...signupForm, password: e.target.value})}
-                placeholder="Create a password"
-                className="bg-background border-border"
-                required
-              />
-            </div>
-            
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-effect">
-              Create Account
-            </Button>
-            
-            <div className="text-center">
-              <p className="text-muted-foreground text-sm">Already have an account?</p>
-              <Button 
-                type="button" 
-                variant="link"
-                onClick={() => {
-                  setShowSignupModal(false);
-                  setShowLoginModal(true);
-                }}
-                className="text-primary hover:text-primary/80 p-0 h-auto"
-              >
-                Login
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
 
       {/* Profile Detail Modal */}
       <Dialog open={showProfileModal} onOpenChange={setShowProfileModal}>

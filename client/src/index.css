@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(240, 10%, 3.9%);
+  --background: hsl(0, 0%, 2%);
   --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --popover: hsl(240, 10%, 3.9%);
+  --muted: hsl(0, 0%, 8%);
+  --muted-foreground: hsl(0, 0%, 64.9%);
+  --popover: hsl(0, 0%, 2%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 3.7%, 15.9%);
+  --card: hsl(0, 0%, 8%);
   --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(207, 90%, 54%);
-  --primary-foreground: hsl(211, 100%, 99%);
-  --secondary: hsl(240, 3.7%, 15.9%);
+  --border: hsl(0, 0%, 12%);
+  --input: hsl(0, 0%, 8%);
+  --primary: hsl(0, 0%, 90%);
+  --primary-foreground: hsl(0, 0%, 2%);
+  --secondary: hsl(0, 0%, 8%);
   --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(207, 90%, 54%);
-  --accent-foreground: hsl(211, 100%, 99%);
+  --accent: hsl(0, 0%, 90%);
+  --accent-foreground: hsl(0, 0%, 2%);
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
+  --ring: hsl(0, 0%, 83.9%);
   --radius: 0.5rem;
   --success: hsl(142, 76%, 36%);
   --warning: hsl(38, 92%, 50%);
-  --liquid-crystal: linear-gradient(135deg, hsl(240, 3.7%, 15.9%) 0%, hsl(240, 5%, 20%) 100%);
+  --liquid-crystal: linear-gradient(135deg, hsl(0, 0%, 8%) 0%, hsl(0, 0%, 12%) 100%);
 }
 
 @layer base {
@@ -42,7 +42,7 @@
 @layer components {
   .liquid-crystal {
     background: var(--liquid-crystal);
-    border: 1px solid hsl(207, 90%, 54%, 0.1);
+    border: 1px solid hsl(0, 0%, 20%);
     backdrop-filter: blur(10px);
   }
   
@@ -51,7 +51,7 @@
   }
   
   .glow-effect:hover {
-    box-shadow: 0 0 20px hsl(207, 90%, 54%, 0.3);
+    box-shadow: 0 0 20px hsl(0, 0%, 60%, 0.3);
     transform: translateY(-2px);
   }
   
@@ -78,11 +78,11 @@
   
   .profile-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   }
   
   .availability-badge {
-    background: linear-gradient(45deg, hsl(207, 90%, 54%), hsl(215, 98%, 61%));
+    background: linear-gradient(45deg, hsl(0, 0%, 25%), hsl(0, 0%, 35%));
   }
   
   .skills-offered {
@@ -90,6 +90,6 @@
   }
   
   .skills-wanted {
-    background: hsl(215, 98%, 61%);
+    background: hsl(280, 100%, 60%);
   }
 }

@@ -7,6 +7,9 @@ This is a full-stack web application built with React and Express that allows us
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+JavaScript preference: Pure JavaScript (no TypeScript)
+Theme preference: Black/liquid crystal dark theme (no blue colors)
+Authentication: Separate login and signup pages instead of modal dialogs
 
 ## System Architecture
 
